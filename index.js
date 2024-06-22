@@ -1,9 +1,10 @@
 import 'dotenv/config';
 
-const express = require("express");
+import express from 'express';
+import cors from 'cors';
+import videoRoutes from './routes/videos.js';
+
 const app = express();
-const cors = require("cors");
-const videoRoutes = require("./routes/videos");
 
 app.use(cors());
 app.use(express.json());

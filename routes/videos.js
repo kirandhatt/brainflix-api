@@ -1,8 +1,8 @@
-const express = require("express");
-const { v4: uuidv4 } = require('uuid');
-const router = express.Router();
-const fs = require("fs");
+import express from 'express';
+import fs from 'fs';
+import {v4 as uuidv4} from 'uuid';
 
+const router = express.Router();
 const videoData = './data/video-details.json';
 
 router.use(express.json());
@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
         id: uuidv4(),
         title,
         description,
-        channel: 'Placeholder Channel',
+        channel: 'Usain Bolt',
         image: '/public/images/Upload-video-preview.jpg',
         views: '0',
         likes: '0',
@@ -72,4 +72,4 @@ router.post('/', (req, res) => {
     res.status(201).json(newVideo);
 });
 
-module.exports = router;
+export default router;
