@@ -14,7 +14,7 @@ function readVideoData() {
 };
 
 // write to the data file //
-function writeVideoData() {
+function writeVideoData(data) {
     fs.writeFileSync(videoData, JSON.stringify(data, null, 2));
 };
 
@@ -54,22 +54,28 @@ router.get('/:id', (req, res) => {
 
 // POST /videos request //
 router.post('/', (req, res) => {
-    const {title, description} = req.body;
-    const videoData = readVideoData();
-    const newVideo = {
-        id: uuidv4(),
-        title,
-        description,
-        channel: 'Usain Bolt',
-        image: '/public/images/Upload-video-preview.jpg',
-        views: '0',
-        likes: '0',
-        timestamp: Date.now(),
-        comments: [],
+    try {
+        const {title, description} = req.body;
+        console.log('Incoming POST request:', req.body);
+        const videoData = readVideoData();
+        const newVideo = {
+            id: uuidv4(),
+            title,
+            description,
+            channel: 'Usain Bolt',
+            image: '/public/images/Upload-video-preview.jpg',
+            views: '0',
+            likes: '0',
+            timestamp: Date.now(),
+            comments: [],
+        };
+        videoData.push(newVideo);
+        writeVideoData(videoData);
+        res.status(201).json(newVideo);
+    } catch (error) {
+        console.error('Error writing video data:', error);
+        res.status(500).json({message: 'Internal server error'});
     };
-    videoData.push(newVideo);
-    writeVideoData(videoData);
-    res.status(201).json(newVideo);
 });
 
 export default router;
