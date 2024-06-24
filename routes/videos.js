@@ -63,7 +63,7 @@ router.post('/', (req, res) => {
             title,
             description,
             channel: 'Usain Bolt',
-            image: '/public/images/Upload-video-preview.jpg',
+            image: 'images/Upload-video-preview.jpg',
             views: '0',
             likes: '0',
             timestamp: Date.now(),
